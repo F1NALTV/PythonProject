@@ -1,0 +1,43 @@
+#def FloorFootage():
+mainfloor = input("Enter the square footage of the main floor: ")
+C1 = input("Enter the ceiling height for main floor: ")
+
+floortwo = input("Enter the square footage of the second floor: ")
+C2 = input("Enter the ceiling height for second floor: ")
+
+basement = input("Enter the square footage of the basement: ")
+C3 = input("Enter ceiling height for basement: ")
+
+#TFf = int(mainfloor) + int(floortwo) + int(basement)
+#print(TFf)
+
+#def TotalBoardft():
+
+#mainfloor    
+if int(C1) <= 10:
+    TBF1 = float(mainfloor) * 4
+else:
+    TBF1 = float(mainfloor) * 4.25
+print(TBF1)
+
+#second floor
+if int(C2) <= 10:
+    TBF2 = float(floortwo) * 4
+else:
+    TBF2 = float(floortwo) * 4.25
+print(TBF2)
+
+#basement
+if int(C3) <= 10:
+    TBF3 = float(basement) * 4
+else:
+    TBF3 = float(basement) * 4.25
+print(TBF3)
+
+TBF = float(TBF1) + float(TBF2)+ float(TBF3)
+print(TBF,"total board ft")
+
+#materials
+matsubtotal = float(TBF) * (.40)
+matsubtotal = (round(matsubtotal,2))
+print("Materials cost: $", matsubtotal)
