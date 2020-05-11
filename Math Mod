@@ -1,3 +1,5 @@
+rough draft math mod, will finish and clean up on monday.
+
 #def FloorFootage():
 mainfloor = input("Enter the square footage of the main floor: ")
 C1 = input("Enter the ceiling height for main floor: ")
