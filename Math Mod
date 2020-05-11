@@ -8,8 +8,6 @@ C2 = input("Enter the ceiling height for second floor: ")
 basement = input("Enter the square footage of the basement: ")
 C3 = input("Enter ceiling height for basement: ")
 
-#TFf = int(mainfloor) + int(floortwo) + int(basement)
-#print(TFf)
 
 #def TotalBoardft():
 
@@ -34,6 +32,7 @@ else:
     TBF3 = float(basement) * 4.25
 print(TBF3)
 
+#TBF
 TBF = float(TBF1) + float(TBF2)+ float(TBF3)
 print(TBF,"total board ft")
 
