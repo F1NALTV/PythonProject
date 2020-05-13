@@ -3,112 +3,100 @@
     
 def Calc():
     
-    mainfloor = input("Enter the square footage of the main floor: ")
-    C1 = input("Enter the ceiling height for main floor: ")
+    x = input("Enter 'y' to calculate bid, or enter 'n' to cancel: ")
+    
+    if x == 'y':
+        x = input("Enter a 'y' to start the calculator, or enter 'n' to stop: ")
+    
+        mainfloor = input("Enter the square footage of the main floor: ")
+        C1 = input("Enter the ceiling height for main floor: ")
 
-    floortwo = input("Enter the square footage of the second floor: ")
-    C2 = input("Enter the ceiling height for second floor: ")
+        floortwo = input("Enter the square footage of the second floor: ")
+        C2 = input("Enter the ceiling height for second floor: ")
 
-    basement = input("Enter the square footage of the basement: ")
-    C3 = input("Enter ceiling height for basement: ")
+        basement = input("Enter the square footage of the basement: ")
+        C3 = input("Enter ceiling height for basement: ")
 
-    if float(C1) <= 8:
-        TBF1 = float(mainfloor) * 4
-        laborsub1 = float(TBF1) * 1
+        if float(C1) <= 8:
+            TBF1 = float(mainfloor) * 4
+            laborsub1 = float(TBF1) * 1
+        elif float(C1) > 8 and float(C1) < 10.5:
+            percent = float(mainfloor) * .10
+            Fft = float(mainfloor) + float(percent)
+            TBF1 = float(Fft) * 4
+            laborsub1 = float(TBF1) * 1
+        elif float(C1) > 10.5 and float(C1) < 16:
+            percent = float(mainfloor) * .15
+            Fft = float(mainfloor) + float(percent)
+            TBF1 = float(Fft) * 4
+            laborsub1 = float(TBF1) * 2
+        elif float(C1) > 16:
+            percent = float(mainfloor) * .15
+            Fft = float(mainfloor) + float(percent)
+            TBF1 = float(Fft) * 4
+            laborsub1 = float(TBF1) * 3
+        else:
+            print()
     
-    
-    elif float(C1) > 8 and float(C1) < 10.5:
-        percent = float(mainfloor) * .10
-        Fft = float(mainfloor) + float(percent)
-        TBF1 = float(Fft) * 4
-        laborsub1 = float(TBF1) * 1
-    
-    
-    elif float(C1) > 10.5 and float(C1) < 16:
-        percent = float(mainfloor) * .15
-        Fft = float(mainfloor) + float(percent)
-        TBF1 = float(Fft) * 4
-        laborsub1 = float(TBF1) * 2
-    
-    
-    elif float(C1) > 16:
-        percent = float(mainfloor) * .15
-        Fft = float(mainfloor) + float(percent)
-        TBF1 = float(Fft) * 4
-        laborsub1 = float(TBF1) * 3
+        if float(C2) <= 8:
+            TBF2 = float(floortwo) * 4
+            laborsub2 = float(TBF2) * 1
+        elif float(C2) > 8 and float(C2) < 10.5:
+            percent = float(floortwo) * .10
+            Fft = float(floortwo) + float(percent)
+            TBF2 = float(Fft) * 4
+            laborsub2 = float(TBF2) * 1
+        elif float(C2) > 10.5 and float(C2) < 16:
+            percent = float(floortwo) * .15
+            Fft = float(floortwo) + float(percent)
+            TBF2 = float(Fft) * 4
+            laborsub2 = float(TBF2) * 2
+        elif float(C2) > 16:
+            percent = float(floortwo) * .15
+            Fft = float(floortwo) + float(percent)
+            TBF2 = float(Fft) * 4
+            laborsub2 = float(TBF2) * 3
+        else:
+            print()
+            
+        if float(C3) <= 8:
+            TBF3 = float(basement) * 4
+            laborsub3 = float(TBF3) * 1
+        elif float(C3) > 8 and float(C3) < 10.5:
+            percent = float(basement) * .10
+            Fft = float(basement) + float(percent)
+            TBF3 = float(Fft) * 4
+            laborsub3 = float(TBF3) * 1
+        elif float(C3) > 10.5 and float(C3) < 16:
+            percent = float(basement) * .15
+            Fft = float(basement) + float(percent)
+            TBF3 = float(Fft) * 4
+            laborsub3 = float(TBF3) * 2
+        elif float(C3) > 16:
+            percent = float(basement) * .15
+            Fft = float(basement) + float(percent)
+            TBF3 = float(Fft) * 4
+            laborsub3 = float(TBF3) * 3
+        else:
+            print()
+        #TBF and labor totals calc
+        TBF = float(TBF1) + float(TBF2)+ float(TBF3)
+        print("Total Board ft: ", TBF)
+        laborcost = float(laborsub1) + float(laborsub2) + float(laborsub3)
+        print("Labor cost: $", laborcost)
+        #materials calc
+        matsubtotal = float(TBF) * (.40)
+        matsubtotal = (round(matsubtotal,2))
+        print("Materials cost: $", matsubtotal)
+        #total cost calc
+        totalcost = float(laborcost) + float(matsubtotal)
+        print("Total cost of this job: $", totalcost)
+        
+    elif x == 'n':
+        print("Goodbye")
+        quit()
     
     else:
-        print()
-    
-
-
-    if float(C2) <= 8:
-        TBF2 = float(floortwo) * 4
-        laborsub2 = float(TBF2) * 1
-    
-    
-    elif float(C2) > 8 and float(C2) < 10.5:
-        percent = float(floortwo) * .10
-        Fft = float(floortwo) + float(percent)
-        TBF2 = float(Fft) * 4
-        laborsub2 = float(TBF2) * 1
-    
-    
-    elif float(C2) > 10.5 and float(C2) < 16:
-        percent = float(floortwo) * .15
-        Fft = float(floortwo) + float(percent)
-        TBF2 = float(Fft) * 4
-        laborsub2 = float(TBF2) * 2
-    
-    
-    elif float(C2) > 16:
-        percent = float(floortwo) * .15
-        Fft = float(floortwo) + float(percent)
-        TBF2 = float(Fft) * 4
-        laborsub2 = float(TBF2) * 3
-    
-    else:
-        print()
-
-
-    if float(C3) <= 8:
-        TBF3 = float(basement) * 4
-        laborsub3 = float(TBF3) * 1
-    
-    
-    elif float(C3) > 8 and float(C3) < 10.5:
-        percent = float(basement) * .10
-        Fft = float(basement) + float(percent)
-        TBF3 = float(Fft) * 4
-        laborsub3 = float(TBF3) * 1
-    
-    
-    elif float(C3) > 10.5 and float(C3) < 16:
-        percent = float(basement) * .15
-        Fft = float(basement) + float(percent)
-        TBF3 = float(Fft) * 4
-        laborsub3 = float(TBF3) * 2
-    
-    
-    elif float(C3) > 16:
-        percent = float(basement) * .15
-        Fft = float(basement) + float(percent)
-        TBF3 = float(Fft) * 4
-        laborsub3 = float(TBF3) * 3
-    
-    else:
-        print()
-    
-    #TBF and labor totals
-    TBF = float(TBF1) + float(TBF2)+ float(TBF3)
-    print("Total Board ft: ", TBF)
-    laborcost = float(laborsub1) + float(laborsub2) + float(laborsub3)
-    print("Cost for Labor is: $", laborcost)
-
-    #materials calc
-    matsubtotal = float(TBF) * (.40)
-    matsubtotal = (round(matsubtotal,2))
-    print("Materials cost: $", matsubtotal)
-
-
+        print("Please enter a 'y' or 'n'")
+print()
 Calc()
