@@ -1,5 +1,5 @@
 #Importing the module I made this function in will allows us to attatch this function Calc() to a button in GUI. 
-#The function will get the user input along with calculating all of the totals after using the button. 
+#Text entry fields will serve as the user input. 
     
 def Calc():
     
