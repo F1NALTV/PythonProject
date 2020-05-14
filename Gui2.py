@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk
 #from SQLHandler import *
 import sqlite3
-from pip._vendor.progress import counter
 conn = sqlite3.connect('bidcalc.db') #creates db called bidcalc
 c = conn.cursor() #creates db at same location as py file   
 
@@ -96,10 +95,34 @@ class ViewJob(tk.Frame):
        
         ttk.Label(self, text="All Jobs").grid(row=0, column=0, sticky=tk.N,)
         
+        f1 = tk.Frame(self)
+        f1.grid(row=3,column=0)
+        ttk.Button(f1, text="back", command = lambda: self.master.destroy()).grid(row = 0, column=0)#,padx =75, pady=25)
+        ttk.Button(f1, text="Edit Jobs", command= lambda: self.editJob()).grid(row=0,column=1)
+        ttk.Button(f1, text="Refresh Table").grid(row=0,column=2)
+        ttk.Button(f1, text="Delete Entry",command = self.deleteJob).grid(row=0,column=3)
+    def deleteJob(self):
+        new = tk.Toplevel(self)
+        DeleteJob(new).grid(row=0,column=0)
+class DeleteJob(tk.Frame):
+    def __init__ (self,parent):
+        tk.Frame.__init__(self, parent)
         
-        
-        ttk.Button(self, text="back", command = lambda: self.master.destroy()).grid(row = 7, column=0)
-        ttk.Button(self, text="Edit Jobs", command= lambda: self.editJob()).grid(row=7,column=1)
+        ttk.Label(self,text="Please enter ID of Job you want to Delete: ").grid(row = 0, column = 0)
+        self.delID = ttk.Entry(self)
+        self.delID.grid(row=0,column=1)
+        ttk.Button(self, text="back", command = lambda: self.master.destroy()).grid(row = 1, column=0)#,padx =75, pady=25)
+        ttk.Button(self, text="Delete Jobs",command = self.combineFuncs(lambda: self.confirmDel(), self.master.destroy)).grid(row=1,column=1)
+    def confirmDel(self):
+        sqldel = '''DELETE FROM JOB WHERE JobID = ?'''
+        ID = self.delID.get()
+        c.execute(sqldel, (ID, ))
+        conn.commit()
+    def combineFuncs(self, *funcs):
+        def combinedFunc(*args, **kwargs):
+            for f in funcs:
+                f(*args, **kwargs)
+        return combinedFunc     
 class EditJob(tk.Frame):
     def getID(self):
         conn.row_factory = sqlite3.Row
