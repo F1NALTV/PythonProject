@@ -96,11 +96,57 @@ class ViewJob(tk.Frame):
         ttk.Label(self, text="All Jobs").grid(row=0, column=0, sticky=tk.N,)
         
         f1 = tk.Frame(self)
-        f1.grid(row=3,column=0)
+        f1.grid(row=15,column=0)
         ttk.Button(f1, text="back", command = lambda: self.master.destroy()).grid(row = 0, column=0)#,padx =75, pady=25)
         ttk.Button(f1, text="Edit Jobs", command= lambda: self.editJob()).grid(row=0,column=1)
-        ttk.Button(f1, text="Refresh Table").grid(row=0,column=2)
+        ttk.Button(f1, text="Refresh Table",command=self.refreshTable).grid(row=0,column=2)
         ttk.Button(f1, text="Delete Entry",command = self.deleteJob).grid(row=0,column=3)
+    def refreshTable(self):
+        frame2 = tk.Frame(self)
+        frame2.grid(row=3, column=0, sticky=tk.NW, padx=25)
+        canvas = tk.Canvas(frame2)
+        canvas.grid(row=0, column=0)
+        #scrollbar
+        vsbar = tk.Scrollbar(frame2, orient=tk.VERTICAL, command=canvas.yview)
+        vsbar.grid(row=0, column=1, sticky=tk.NS)
+        canvas.configure(yscrollcommand=vsbar.set)
+        tableFrame = tk.Frame(canvas)
+        
+        # this populates the table with headings
+        headings = ["JobKind", "JobAddress", "JobTime", "JobPNumber", "JobContractor", "JobDate", "JobExp", "JobName", "JobID"]
+        headingRow = 1
+        headingColumn = 9
+        for z in range(headingColumn):
+            for y in range(headingRow):
+                for x in range(9):
+                    headingLabel = ttk.Label(tableFrame, background = "gray90", borderwidth = 1, width = 30, relief = "ridge", text=headings[z])
+                    headingLabel.grid(row=y, column=z, sticky=tk.NSEW)
+       
+        # this gets the count of entries and then creates the number of rows in the table accordingly
+        c.execute("SELECT COUNT (*) FROM JOB;")
+        entries = c.fetchall()
+        print(entries[0][0])
+        tableheight = entries[0][0]
+        tablewidth = 9
+       
+        # this fills the table with the entries saved in the db
+        c.execute("SELECT * FROM JOB;")
+        items = c.fetchall()
+        print(items)
+        for i in range(tablewidth): #columns
+            for j in range(tableheight): #rows
+                itemEntry = ttk.Label(tableFrame, borderwidth = 1, width = 30, relief="ridge", text=items[j][i])
+                itemEntry.grid(row=j+1, column=i)
+
+        # Creating canvas window to hold the tableFrame
+        canvas.create_window((0,0), window=tableFrame, anchor=tk.NW)
+        tableFrame.update_idletasks()  # Needed to make bbox info available
+        bbox = canvas.bbox(tk.ALL)  # Get bounding box of canvas
+
+        # Defining the scrollable region as entire canvas with only the desired
+        w, h = bbox[2]-bbox[1], bbox[3]-bbox[1]
+        dw, dh = int((w/tablewidth) * 9), int((h/(tableheight + 1)) * 6)
+        canvas.configure(scrollregion=bbox, width=dw, height=dh)
     def deleteJob(self):
         new = tk.Toplevel(self)
         DeleteJob(new).grid(row=0,column=0)
